@@ -8,25 +8,25 @@
     <title>Главная</title>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="left-sidebar">
-            <ul class="menu">
-                <li class="menu-item">
-                    <h1>@DocumentFlow.Controllers.AccountController.FullName</h1>
-                    <ul class="submenu">
-                        <li class="submenu-item">@Html.ActionLink("Редактировать", "Edit", "Account")</li>
-                        <li class="submenu-item">@Html.ActionLink("Удалить", "Delete", "Account")</li>
-                        <li class="submenu-item">@Html.ActionLink("Выйти", "LogOff", "Account")</li>
-                    </ul>
-                </li>
-            </ul>
-            <nav>
-                @Html.ActionLink("Входящие", "")
-                @Html.ActionLink("Исходящие", "")
-                @Html.ActionLink("Заполнить", "")
-            </nav>
-        </div>
-        @RenderBody()
+<div class="wrapper">
+    <div class="left-sidebar">
+        <ul class="menu">
+            <li class="menu-item">
+                <h1>@DocumentFlow.Controllers.AccountController.FullName</h1>
+                <ul class="submenu">
+                    <li class="submenu-item">@Html.ActionLink("Редактировать", "Edit", "Account")</li>
+                    <li class="submenu-item">@Html.ActionLink("Удалить", "Delete", "Account")</li>
+                    <li class="submenu-item">@Html.ActionLink("Выйти", "LogOff", "Account")</li>
+                </ul>
+            </li>
+        </ul>
+        <nav>
+            @Html.ActionLink("Входящие", "")
+            @Html.ActionLink("Исходящие", "")
+            @Html.ActionLink("Заполнить", "")
+        </nav>
     </div>
+    @RenderBody()
+</div>
 </body>
 </html>
