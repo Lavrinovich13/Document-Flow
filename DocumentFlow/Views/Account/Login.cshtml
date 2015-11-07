@@ -1,0 +1,34 @@
+﻿@model DocumentFlow.Models.LoginModel
+@{
+    ViewBag.Title = "DocumentFlow_Login";
+    Layout = null;
+}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="~/Content/styles.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css">
+    <title>Вход</title>
+</head>
+<body class="login-html">
+    <div class="login-wrapper">
+        <div class="login-header"><h1>Вход</h1></div>
+        <div class="login-form">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                {
+                    @Html.ValidationSummary(false)
+                    {
+                        <span>Логин :</span>@Html.EditorFor(x => x.Login)
+                        <br>
+                        <span>Пароль :</span>@Html.EditorFor(x => x.Password)
+                        <br>
+                        @Html.ActionLink("Зарегистрироваться", "Register")
+                    }
+                }
+                <input class="button" type="submit" value="Войти">
+            }
+        </div>
+    </div>
+</body>

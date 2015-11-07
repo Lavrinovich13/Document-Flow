@@ -1,0 +1,42 @@
+﻿@model DocumentFlow.Models.EditModel
+
+@{
+    ViewBag.Title = "DocumentFlow_Edit";
+}
+
+<div class="main-block">
+    <div class="reg-form">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        {
+            @Html.ValidationSummary(false)
+            {
+                <span>Логин:</span>
+                @Html.EditorFor(model => model.Login)
+                <br>
+                <span>Имя:</span>
+                @Html.EditorFor(model => model.FirstName)
+                <br>
+                <span>Фамилия:</span>
+                @Html.EditorFor(model => model.LastName)
+                <br>
+                <span>Отчество:</span>
+                @Html.EditorFor(model => model.Patronymic)
+                <br>
+                <span>Почта:</span>
+                @Html.EditorFor(model => model.Email)
+                <br>
+                <span>Должность:</span>
+                @Html.DropDownListFor(model => model.Position, new[]
+                {
+                    new SelectListItem() {Text = "Директор", Value = "1"},
+                    new SelectListItem() {Text = "Рабочий", Value = "2"}
+                })
+                <br>
+            }
+        }
+        <input type="submit" class="button" value="Изменить"/>
+    }
+    </div>
+</div>
