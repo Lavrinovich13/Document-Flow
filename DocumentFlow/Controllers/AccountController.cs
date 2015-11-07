@@ -120,17 +120,17 @@ namespace DocumentFlow.Controllers
         [HttpGet]
         public async Task<ActionResult> DeleteConfirmed()
         {
-            ApplicationUser user = await UserManager.FindByIdAsync(UserId);
-            if (user != null)
-            {
-                IdentityResult result = await UserManager.DeleteAsync(user);
-                if (result.Succeeded)
+                ApplicationUser user = await UserManager.FindByIdAsync(UserId);
+                if (user != null)
                 {
-                    return RedirectToAction("Login", "Account");
+                    IdentityResult result = await UserManager.DeleteAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Login", "Account");
+                    }
+                    return RedirectToAction("Index", "Home");
                 }
-                return RedirectToAction("Index", "Home");
-            }
-            return RedirectToAction("Index", "Home");
+           return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
