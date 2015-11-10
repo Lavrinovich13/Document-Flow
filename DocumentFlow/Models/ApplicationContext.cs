@@ -15,5 +15,7 @@ namespace DocumentFlow.Models
         {
             return new ApplicationContext();
         }
+
+        public DbSet<DocumentModel> Documents { get; set; }
     }
 }
