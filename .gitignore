@@ -1,0 +1,6 @@
+DocumentFlow/App_Data/SomeCompany
+DocumentFlow/App_Data/SomeCompany_log.ldf
+DocumentFlow/Migrations/201511091352425_MigrationDB.Designer.cs
+DocumentFlow/Migrations/201511091352425_MigrationDB.cs
+DocumentFlow/Migrations/201511091352425_MigrationDB.resx
+DocumentFlow/Migrations/Configuration.cs
