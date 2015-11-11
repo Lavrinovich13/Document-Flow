@@ -23,7 +23,7 @@ namespace DocumentFlow.Controllers
             List<DocumentModel> list = new List<DocumentModel>();
             using (ApplicationContext context = new ApplicationContext())
             {
-                list = db.Documents.Where(x => AccountController.UserId == x.userid).ToList();
+                list = db.Documents.Where(x => AccountController.UserId == x.UserId).ToList();
             }
             return View(list);
 
@@ -36,7 +36,7 @@ namespace DocumentFlow.Controllers
             List<DocumentModel> list = new List<DocumentModel>();
             using (ApplicationContext context = new ApplicationContext())
             {
-                list = db.Documents.Where(x => AccountController.UserId == x.currentid).ToList();
+                list = db.Documents.Where(x => AccountController.UserId == x.CurrentUserId).ToList();
             }
             return View(list);
         }
