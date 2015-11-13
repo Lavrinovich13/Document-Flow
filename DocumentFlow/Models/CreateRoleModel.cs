@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DocumentFlow.Models
 {
-    public class ApplicationRole : IdentityRole
+    public class CreateRoleModel
     {
-        public ApplicationRole() { }
-
+        public string Name { get; set; }
         public string Description { get; set; }
     }
 }

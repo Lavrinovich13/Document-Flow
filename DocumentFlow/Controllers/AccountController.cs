@@ -9,6 +9,7 @@ using DocumentFlow.Models;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.Owin.Security;
+using System.Net.Mail;
 
 namespace DocumentFlow.Controllers
 {
@@ -16,6 +17,14 @@ namespace DocumentFlow.Controllers
     {
         public static string FullName;
         private static string UserId;
+
+        private ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+        }
         private ApplicationUserManager UserManager
         {
             get
@@ -50,6 +59,8 @@ namespace DocumentFlow.Controllers
                 {
                     FullName = user.FirstName + " " + user.LastName;
                     UserId = user.Id;
+
+                    await UserManager.AddToRoleAsync(UserId, "User");
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -101,6 +112,11 @@ namespace DocumentFlow.Controllers
                     {
                         UserId = user.Id;
                         FullName = user.FirstName + " " + user.LastName;
+
+                        if (UserManager.IsInRole(UserId, "Admin"))
+                        {
+                            return RedirectToAction("Index", "Admin");
+                        }
                         return RedirectToAction("Index", "Main");
                     }
                     return Redirect(returnUrl);
@@ -120,17 +136,17 @@ namespace DocumentFlow.Controllers
         [HttpGet]
         public async Task<ActionResult> DeleteConfirmed()
         {
-                ApplicationUser user = await UserManager.FindByIdAsync(UserId);
-                if (user != null)
+            ApplicationUser user = await UserManager.FindByIdAsync(UserId);
+            if (user != null)
+            {
+                IdentityResult result = await UserManager.DeleteAsync(user);
+                if (result.Succeeded)
                 {
-                    IdentityResult result = await UserManager.DeleteAsync(user);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Login", "Account");
-                    }
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
-           return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -190,6 +206,76 @@ namespace DocumentFlow.Controllers
             UserId = null;
             FullName = null;
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    return View("ForgotPasswordConfirmation");
+                }
+                var callbackUrl = Url.Action("ResetPassword", "Account",
+                    new { userId = user.Id }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Сброс пароля",
+                    "Для сброса пароля, перейдите по ссылке <a href=\"" + callbackUrl + "\">сбросить</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            }
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        //
+        // GET: /Account/ResetPassword
+        [AllowAnonymous]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPasswordConfirmation()
+        {
+            return View();
         }
     }
 }

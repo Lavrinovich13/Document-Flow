@@ -25,6 +25,8 @@
                         <span>Пароль :</span>@Html.EditorFor(x => x.Password)
                         <br>
                         @Html.ActionLink("Зарегистрироваться", "Register")
+                        <br>
+                        @Html.ActionLink("Забыл пароль", "ForgotPassword")
                     }
                 }
                 <input class="button" type="submit" value="Войти">
