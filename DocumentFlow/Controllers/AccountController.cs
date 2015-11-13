@@ -60,7 +60,7 @@ namespace DocumentFlow.Controllers
                     FullName = user.FirstName + " " + user.LastName;
                     UserId = user.Id;
 
-                    await UserManager.AddToRoleAsync(UserId, "User");
+                    //await UserManager.AddToRoleAsync(UserId, "User");
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -115,7 +115,7 @@ namespace DocumentFlow.Controllers
 
                         if (UserManager.IsInRole(UserId, "Admin"))
                         {
-                            return RedirectToAction("Index", "Admin");
+                            return RedirectToAction("Roles", "Admin");
                         }
                         return RedirectToAction("Index", "Main");
                     }

@@ -203,7 +203,7 @@ nav a:hover{
 	padding: 12px 0;
 	color: #000;
 	font-size: 12px;
-	margin-top: 60px;
+	margin-top: 100px;
 }
 
 thead{
@@ -249,11 +249,11 @@ tbody > tr:last-child{
 }
 
 .edit-button{
-	background: url('../images/pencil_2553.png') no-repeat center center;
+	background: url('/Content/images/pencil_2553.png') no-repeat center center;
 }
 
 .remove-button {
-	background: url('../images/button_delete_red_2750.png') no-repeat center center;
+	background: url('/Content/images/button_delete_red_2750.png') no-repeat center center;
 }
 
 
@@ -495,7 +495,7 @@ textarea:focus{
 }
 
 .new-meta{
-	margin: 20% auto 0;
+	margin: 0 auto;
 	width: 480px;
 	border: 1px solid #bebebe;
 }
@@ -505,7 +505,7 @@ textarea:focus{
 	display: inline-block; 
 	width: 50px; 
 	height: 40px; 
-	background: url('/images/Add_circular_button_32.png') no-repeat center center;
+	background: url('/Content/images/Add_circular_button_32.png') no-repeat center center;
 }
 
 
@@ -515,9 +515,9 @@ textarea:focus{
 	height: 64px;
 	background-color: #bebebe;
 	margin-bottom: 20px;
-	background: url('../images/Add_button_inside_black_circle_64.png') no-repeat center center;
+	background: url('/Content/images/Add_button_inside_black_circle_64.png') no-repeat center center;
 }
 
 .add-new-entry:hover{
-	background: url('../images/Add_button_inside_black_circle_64_hover.png') no-repeat center center;
+	background: url('/Content/images/Add_button_inside_black_circle_64_hover.png') no-repeat center center;
 }

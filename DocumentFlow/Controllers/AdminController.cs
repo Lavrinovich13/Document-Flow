@@ -26,19 +26,41 @@ namespace DocumentFlow.Controllers
             }
         }
 
-        public ActionResult Index()
+        private ApplicationUserManager UserManager
         {
-            return View();
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
         }
 
+
+
+        public ActionResult DocumentTemplates()
+        {
+            return View("Index/DocumentTemplates");
+        }
+        public ActionResult EditTemplate()
+        {
+            return View("Edit/EditTemplate");
+        }
+        public ActionResult CreateTemplate()
+        {
+            return View("Create/CreateTemplate",new DocumentTemplate());
+        }
+        public ActionResult Users()
+        {
+            return View("Index/Users",UserManager.Users.ToList());
+        }
+        
         public ActionResult Roles()
         {
-            return View(RoleManager.Roles.ToList());
+            return View("Index/Roles",RoleManager.Roles.ToList());
         }
 
         public ActionResult CreateRole()
         {
-            return View();
+            return View("Create/CreateRole");
         }
         [HttpPost]
         public async Task<ActionResult> CreateRole(CreateRoleModel model)
@@ -59,7 +81,7 @@ namespace DocumentFlow.Controllers
                     ModelState.AddModelError("", "Что-то пошло не так");
                 }
             }
-            return View(model);
+            return View("Create/CreateRole",model);
         }
 
         public async Task<ActionResult> EditRole(string id)
@@ -69,7 +91,7 @@ namespace DocumentFlow.Controllers
                 ApplicationRole role = await RoleManager.FindByIdAsync(id);
                 if (role != null)
                 {
-                    return View(new EditRoleModel { Name = role.Name, Description = role.Description });
+                    return View("Edit/EditRole",new EditRoleModel { Name = role.Name, Description = role.Description });
                 }
             }
             return RedirectToAction("Roles");
@@ -95,7 +117,7 @@ namespace DocumentFlow.Controllers
                     }
                 }
             }
-            return View(model);
+            return View("Edit/EditRole",model);
         }
 
         [HttpGet]
@@ -117,13 +139,13 @@ namespace DocumentFlow.Controllers
             {
                 positions = context.Positions.ToList();
             }
-            return View(positions);
+            return View("Index/Positions",positions);
         }
 
         [HttpGet]
         public ActionResult CreatePosition()
         {
-            return View();
+            return View("Create/CreatePosition");
         }
 
         [HttpPost]
@@ -151,7 +173,7 @@ namespace DocumentFlow.Controllers
                 editPosition.Id = position.Id;
                 editPosition.Name = position.Name;
             }
-            return View(editPosition);
+            return View("Edit/EditPosition",editPosition);
         }
 
         [HttpPost]
