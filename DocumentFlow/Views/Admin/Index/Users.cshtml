@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DocumentFlow.Models.ApplicationUser>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-block">
+    <div class="main-blcok-wrapper">
+        <div class="header">
+            <h1>Пользователи</h1>
+        </div>
+       
+        <br>
+        <div class="middle">
+            <div class="middle">
+                <table style="width: 100%; margin-bottom: 20px;">
+                    @if (Model != null && Model.Count() != 0)
+                    {
+                        <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Отчество</th>
+                            <th>Должность</th>
+                            <th>Операция</th>
+                        </tr>
+                        </thead>
+                        foreach (var item in Model)
+                        {
+                            <tbody>
+                            <tr>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.Patronymic</td>
+                                <td>@item.Position</td>
+                                <td class="action-buttons">
+                                    @Html.ActionLink(" ", "EditUser", new { id = item.Id }, new { @class = "edit-button" })
+                                    @Html.ActionLink(" ", "DeleteUser", new {id = item.Id}, new {@class = "remove-button"})
+                                </td>
+                            </tr>
+                            </tbody>
+                        }
+                    }
+                    else
+                    {
+                        <tr>список пуст</tr>
+                    }
+                </table>
+            </div>
+            <div class="footer">
+                <h1>© Copyright 2015. All rights reserved by Demen_off</h1>
+            </div>
+        </div>
+    </div>
+</div>
