@@ -15,6 +15,7 @@ namespace DocumentFlow.Controllers
 {
     public class AccountController : Controller
     {
+
         public static string FullName;
         public static string UserId;
 

@@ -7,6 +7,7 @@ namespace DocumentFlow.Models
 {
     public class EditUserModel
     {
+
         public string Id { get; set; }
 
         public string FirstName { get; set; }
@@ -16,5 +17,6 @@ namespace DocumentFlow.Models
         public string Patronymic { get; set; }
 
         public int Position { get; set; }
+
     }
 }

@@ -84,6 +84,18 @@ namespace DocumentFlow.Controllers
             return View("Create/CreateRole",model);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> DeleteUser(string id)
+        {
+            ApplicationUser user = await UserManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                IdentityResult result = await UserManager.DeleteAsync(user);
+            }
+            return RedirectToAction("Users");
+        }
+
+
         public async Task<ActionResult> EditUser(string id)
         {
             if (ModelState.IsValid)
@@ -120,17 +132,6 @@ namespace DocumentFlow.Controllers
                 }
             }
             return View("Edit/EditUser", model);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> DeleteUser(string id)
-        {
-            ApplicationUser user = await UserManager.FindByIdAsync(id);
-            if (user != null)
-            {
-                IdentityResult result = await UserManager.DeleteAsync(user);
-            }
-            return RedirectToAction("Users");
         }
 
         public async Task<ActionResult> EditRole(string id)
