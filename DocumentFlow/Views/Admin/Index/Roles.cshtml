@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DocumentFlow.Models.ApplicationRole>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-block">
+    <div class="main-blcok-wrapper">
+        <div class="header">
+            <h1>Роли</h1>
+        </div>
+        @Html.ActionLink(" ", "CreateRole", "Admin", new { @class = "add-new-entry" })
+        <br>
+        <div class="middle">
+            <table style="width: 40%; margin-bottom: 20px;">
+                @if (Model != null && Model.Count() != 0)
+                {
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Описание</th>
+                            <th>Операция</th>
+                        </tr>
+                    </thead>
+                    foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td class="action-buttons">
+                                    @Html.ActionLink(" ", "EditRole", new { id = item.Id }, new { @class = "edit-button" })
+                                    @Html.ActionLink(" ", "DeleteRole", new { id = item.Id }, new { @class = "remove-button" })
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                }
+                else
+                {
+                    <tr>список пуст</tr>
+                }
+            </table>
+        </div>
+        <div class="footer">
+            <h1>© Copyright 2015. All rights reserved by Demen_off</h1>
+        </div>
+    </div>
+</div>

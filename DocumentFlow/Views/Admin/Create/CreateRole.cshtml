@@ -1,0 +1,28 @@
+﻿@model DocumentFlow.Models.CreateRoleModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="main-block">
+
+    <div class="header">
+        <h1>Добавление роли</h1>
+    </div>
+    <div class="new-meta">
+        <div class="admin-login" style="padding: 40px 59px;">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+
+                <span style="width: 155px;">Название роли: </span>
+                @Html.EditorFor(model => model.Name)
+                <br>
+                <span style="width: 155px;">Описание роли: </span>
+                @Html.EditorFor(model => model.Description)
+                <br>
+                <input class="button" name="submit" type="submit" value="Добавить">
+            }
+        </div>
+    </div>
+</div>
