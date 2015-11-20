@@ -208,7 +208,8 @@ namespace DocumentFlow.Controllers
                 positions = context.Positions.AsEnumerable();
             }
 
-            return View(positions);
+            ViewBag.Positions = positions;
+            return View(new DocumentTemplate());
         }
     }
 }
