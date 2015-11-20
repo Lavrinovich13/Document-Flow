@@ -44,16 +44,16 @@ namespace DocumentFlow.Controllers
         }
         public ActionResult CreateTemplate()
         {
-            return View("Create/CreateTemplate",new DocumentTemplate());
+            return View("Create/CreateTemplate", new DocumentTemplate());
         }
         public ActionResult Users()
         {
-            return View("Index/Users",UserManager.Users.ToList());
+            return View("Index/Users", UserManager.Users.ToList());
         }
-        
+
         public ActionResult Roles()
         {
-            return View("Index/Roles",RoleManager.Roles.ToList());
+            return View("Index/Roles", RoleManager.Roles.ToList());
         }
 
         public ActionResult CreateRole()
@@ -79,7 +79,7 @@ namespace DocumentFlow.Controllers
                     ModelState.AddModelError("", "Что-то пошло не так");
                 }
             }
-            return View("Create/CreateRole",model);
+            return View("Create/CreateRole", model);
         }
 
         public async Task<ActionResult> EditRole(string id)
@@ -89,7 +89,7 @@ namespace DocumentFlow.Controllers
                 ApplicationRole role = await RoleManager.FindByIdAsync(id);
                 if (role != null)
                 {
-                    return View("Edit/EditRole",new EditRoleModel { Name = role.Name, Description = role.Description });
+                    return View("Edit/EditRole", new EditRoleModel { Name = role.Name, Description = role.Description });
                 }
             }
             return RedirectToAction("Roles");
@@ -115,7 +115,7 @@ namespace DocumentFlow.Controllers
                     }
                 }
             }
-            return View("Edit/EditRole",model);
+            return View("Edit/EditRole", model);
         }
 
         [HttpGet]
@@ -137,7 +137,7 @@ namespace DocumentFlow.Controllers
             {
                 positions = context.Positions.ToList();
             }
-            return View("Index/Positions",positions);
+            return View("Index/Positions", positions);
         }
 
         [HttpGet]
@@ -165,19 +165,19 @@ namespace DocumentFlow.Controllers
         public async Task<ActionResult> EditPosition(string id)
         {
             Position editPosition = new Position();
-            using(ApplicationContext context = new ApplicationContext())
+            using (ApplicationContext context = new ApplicationContext())
             {
                 var position = await context.Positions.FindAsync(id);
                 editPosition.Id = position.Id;
                 editPosition.Name = position.Name;
             }
-            return View("Edit/EditPosition",editPosition);
+            return View("Edit/EditPosition", editPosition);
         }
 
         [HttpPost]
         public async Task<ActionResult> EditPosition(Position model)
         {
-            using(ApplicationContext context = new ApplicationContext())
+            using (ApplicationContext context = new ApplicationContext())
             {
                 var position = await context.Positions.FindAsync(model.Id);
                 context.Entry(position).CurrentValues.SetValues(model);
@@ -190,13 +190,25 @@ namespace DocumentFlow.Controllers
         public async Task<ActionResult> DeletePosition(string id)
         {
             //make async
-            using(ApplicationContext context = new ApplicationContext())
+            using (ApplicationContext context = new ApplicationContext())
             {
                 var position = await context.Positions.FindAsync(id);
                 context.Positions.Remove(position);
                 context.SaveChanges();
             }
             return RedirectToAction("Positions");
+        }
+
+        [HttpGet]
+        public ActionResult CreateTemplate()
+        {
+            IEnumerable<Position> positions;
+            using(ApplicationContext context = new ApplicationContext())
+            {
+                positions = context.Positions.AsEnumerable();
+            }
+
+            return View(positions);
         }
     }
 }
