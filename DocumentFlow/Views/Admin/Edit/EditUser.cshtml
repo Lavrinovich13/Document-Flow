@@ -1,0 +1,29 @@
+﻿@model DocumentFlow.Models.EditUserModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="main-block">
+    <div class="header">
+        <h1>Редактирование Пользователя</h1>
+    </div>
+
+    <div class="new-meta">
+        <div class="admin-login" style="padding: 40px 59px;">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div>
+                    @Html.ValidationSummary()
+                    @Html.HiddenFor(model => model.Id)
+                    <p>      Имя: @Html.EditorFor(model => model.FirstName)</p>
+                    <p>  Фамилия: @Html.EditorFor(model => model.LastName)</p>
+                    <p> Отчество: @Html.EditorFor(model => model.Patronymic)</p>
+                    <p>Должность: @Html.EditorFor(model => model.Position)</p>
+                    <p><input type="submit" value="Изменить" /></p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

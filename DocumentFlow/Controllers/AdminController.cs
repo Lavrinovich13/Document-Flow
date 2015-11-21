@@ -129,6 +129,55 @@ namespace DocumentFlow.Controllers
             return RedirectToAction("Roles");
         }
 
+        public async Task<ActionResult> EditUser(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await UserManager.FindByIdAsync(id);
+                if (user != null)
+                {
+                    return View("Edit/EditUser", new EditUserModel { FirstName = user.FirstName, LastName = user.LastName, Patronymic = user.Patronymic, Position = user.Position });
+                }
+            }
+            return RedirectToAction("Users");
+        }
+        [HttpPost]
+        public async Task<ActionResult> EditUser(EditUserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = await UserManager.FindByIdAsync(model.Id);
+                if (user != null)
+                {
+                    user.FirstName = model.FirstName;
+                    user.LastName = model.LastName;
+                    user.Patronymic = model.Patronymic;
+                    user.Position = model.Position;
+                    IdentityResult result = await UserManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Users");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Что-то пошло не так");
+                    }
+                }
+            }
+            return View("Edit/EditUser", model);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteUser(string id)
+        {
+            ApplicationUser user = await UserManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                IdentityResult result = await UserManager.DeleteAsync(user);
+            }
+            return RedirectToAction("Users");
+        }
+
         [HttpGet]
         public ActionResult Positions()
         {
