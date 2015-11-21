@@ -9,6 +9,18 @@
         <div class="header">
             <h1>Добавление документа</h1>
         </div>
+        <div class="pass-edit">
+            <div class="pass"></div>
+            <div class="selection">
+                <select>
+                    <option></option>
+                    <option></option>
+                    <option></option>
+                    <option></option>
+                </select>
+                <a href="#" onclick="console.log('click')">Click</a>
+            </div>
+        </div>
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -17,33 +29,73 @@
 
             <input class="button" name="submit" type="submit" value="Добавить">
 
-            <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+            <!-- Include JS files. -->
             <script src="~/Content/js/froala_editor.min.js"></script>
-            <!--[if lt IE 9]>
-            <script src="~/Content/js/froala_editor_ie8.min.js"></script>
-            <![endif]-->
-            <script src="~/Content/js/plugins/tables.min.js"></script>
-            <script src="~/Content/js/plugins/lists.min.js"></script>
-            <script src="~/Content/js/plugins/colors.min.js"></script>
-            <script src="~/Content/js/plugins/media_manager.min.js"></script>
-            <script src="~/Content/js/plugins/font_family.min.js"></script>
-            <script src="~/Content/js/plugins/block_styles.min.js"></script>
-            <script src="~/Content/js/plugins/video.min.js"></script>
+
+            <!-- Include Plugins. -->
+            <script type="text/javascript" src="~/Content/js/plugins/align.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/char_counter.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/code_view.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/colors.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/emoticons.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/entities.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/file.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/font_family.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/font_size.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/fullscreen.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/image.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/image_manager.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/inline_style.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/line_breaker.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/link.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/lists.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/paragraph_format.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/paragraph_style.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/quote.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/table.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/save.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/url.min.js"></script>
+            <script type="text/javascript" src="~/Content/js/plugins/video.min.js"></script>
+
+            <!-- Include Language file if we'll use it. -->
+            <script type="text/javascript" src="~/Content/js/langs/ro.js"></script>
+
+            <!-- Initialize the editor. -->
             <script>
-            $(function () {
-                $('#edit').editable({
-                    inlineMode: false,
-                    theme: 'gray',
-                    language: 'ru',
-                    imageUploadURL: 'upload_image.php',
-                    imagesLoadURL: 'load_images.php',
-                    imageDeleteURL: 'delete_image.php',
-                })
-                .on('editable.afterRemoveImage', function (e, editor, $img) {
-                    editor.options.imageDeleteParams = { src: $img.attr('src') };
-                    editor.deleteImage($img);
+                $(function () {
+                    $.FroalaEditor.DefineIcon('my_dropdown', { NAME: 'cog' });
+                    $.FroalaEditor.RegisterCommand('my_dropdown', {
+                        title: 'Advanced options',
+                        type: 'dropdown',
+                        focus: false,
+                        undo: false,
+                        refreshAfterCallback: true,
+                        options: {
+                            '#director': 'Director',
+                            '#Buhgalter': 'Buhgalter'
+                        },
+                        callback: function (cmd, val) {
+                            this.html.insert(val);
+                        }
+                    });
+
+                    $('#edit').froalaEditor({
+                        // Add the custom buttons in the toolbarButtons list, after the separator.
+
+                        toolbarButtons: ['fullscreen', 'bold', 'italic',
+                            'underline', 'strikeThrough', 'subscript',
+                            'superscript', 'fontFamily', 'fontSize',
+                            '|', 'color', 'emoticons', 'inlineStyle',
+                            'paragraphStyle', '|', 'paragraphFormat',
+                            'align', 'formatOL', 'formatUL', 'outdent',
+                            'indent', 'quote', 'insertHR', '-', 'insertLink',
+                            'insertImage', 'insertVideo', 'insertFile',
+                            'insertTable', 'undo', 'redo', 'clearFormatting',
+                            'selectAll', 'html', "|", 'formatBlock', 'my_dropdown']
+                    });
                 });
-            });
             </script>
         }
     </div>

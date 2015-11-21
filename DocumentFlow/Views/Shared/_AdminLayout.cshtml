@@ -4,20 +4,34 @@
     <title>Services</title>
     <link href="~/Content/admin-styles.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href="~/Content/froala_editor.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/froala_style.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/themes/gray.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="~/Content/plugins/char_counter.css">
+    <link rel="stylesheet" href="~/Content/plugins/code_view.css">
+    <link rel="stylesheet" href="~/Content/plugins/colors.css">
+    <link rel="stylesheet" href="~/Content/plugins/emoticons.css">
+    <link rel="stylesheet" href="~/Content/plugins/file.css">
+    <link rel="stylesheet" href="~/Content/plugins/fullscreen.css">
+    <link rel="stylesheet" href="~/Content/plugins/image.css">
+    <link rel="stylesheet" href="~/Content/plugins/image_manager.css">
+    <link rel="stylesheet" href="~/Content/plugins/line_breaker.css">
+    <link rel="stylesheet" href="~/Content/plugins/table.css">
+    <link rel="stylesheet" href="~/Content/plugins/video.css">
+    <link href="~/Content/froala_editor.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/froala_style.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div class="left-menu">
         <div class="menu-wrapper">
             <nav>
                 @Html.ActionLink("Шаблоны документов", "DocumentTemplates", "Admin")
-                @Html.ActionLink("Пользователи", "Users", "Admin")
+                @Html.ActionLink("Типы документов", "DocumentTypes", "Admin")
                 @Html.ActionLink("Роли", "Roles", "Admin")
-                @Html.ActionLink("Типы документов", "", "")
                 @Html.ActionLink("Должности", "Positions", "Admin")
+                @Html.ActionLink("Пользователи", "Users", "Admin")
             </nav>
         </div>
     </div>
