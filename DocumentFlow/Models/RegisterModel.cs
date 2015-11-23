@@ -28,7 +28,7 @@ namespace DocumentFlow.Models
         public string Email { get; set; }
 
         [Required]
-        public int Position { get; set; }
+        public string Position { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

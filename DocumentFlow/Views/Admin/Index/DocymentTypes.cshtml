@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DocumentFlow.Models.DocumentType>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="main-block">
+    <div class="main-blcok-wrapper">
+        <div class="header">
+            <h1>Типы документов</h1>
+        </div>
+        <div class="middle">
+            @Html.ActionLink(" ", "CreateDocumentType", "Admin", new { @class = "add-new-entry" })
+            <br>
+            <div class="middle">
+                <table style="width: 40%; margin-bottom: 20px;">
+                    @if (Model != null && Model.Count() != 0)
+                    {
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Операция</th>
+                            </tr>
+                        </thead>
+                        foreach (var item in Model)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td class="action-buttons">
+                                        @Html.ActionLink(" ", " ", new { id = item.Id }, new { @class = "edit-button" })
+                                        @Html.ActionLink(" ", " ", new { id = item.Id }, new { @class = "remove-button" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                    }
+                    else
+                    {
+                        <tr>список пуст</tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

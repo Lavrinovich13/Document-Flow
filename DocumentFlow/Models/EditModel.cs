@@ -23,6 +23,6 @@ namespace DocumentFlow.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        public int Position { get; set; }
+        public string Position { get; set; }
     }
 }

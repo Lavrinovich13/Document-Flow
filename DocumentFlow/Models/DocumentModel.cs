@@ -4,11 +4,14 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace DocumentFlow.Models
 {
     public class DocumentModel  
     {
+        [Key, DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         public string UserId { get; set; }
         public string TemplateId { get; set; }

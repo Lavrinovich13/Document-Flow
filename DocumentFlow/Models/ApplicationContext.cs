@@ -19,5 +19,7 @@ namespace DocumentFlow.Models
         public DbSet<DocumentModel> Documents { get; set; }
         public DbSet<DocumentTemplate> Templates { get; set; }
         public DbSet<Position> Positions { get; set; }
+
+        public DbSet<DocumentType> DocumentTypes { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿@model DocumentFlow.Models.RegisterModel
 @{
-    Layout = null;
+        Layout = null;
+        var positions = (IEnumerable<DocumentFlow.Models.Position>)ViewBag.Positions;
 }
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -14,45 +14,44 @@
     <div class="reg-wrapper">
         <div class="reg-header"><h1>Регистрация</h1></div>
         <div class="reg-form">
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                {
-                    @Html.ValidationSummary(false)
-                    {
-                        <span>Логин:</span>@Html.EditorFor(model => model.Login)
-                        <br>
-
-                        <span>Имя:</span>@Html.EditorFor(model => model.FirstName)
-                        <br>
-
-                        <span>Фамилия:</span> @Html.EditorFor(model => model.LastName)
-                        <br>
-
-                        <span>Отчество:</span>@Html.EditorFor(model => model.Patronymic)
-                        <br>
-
-                        <span>Почта:</span>@Html.EditorFor(model => model.Email)
-                        <br>
-
-                        <span>Должность:</span>
-                        @Html.DropDownListFor(model => model.Position, new[]
-                {
-                    new SelectListItem(){Text = "Директор", Value = "1"},
-                    new SelectListItem(){Text = "Рабочий", Value = "2"}
-                });
-                <br>
-
-                <span>Пароль:</span>@Html.EditorFor(model => model.Password)
-                <br>
-
-                <span>Подтвердить пароль:</span>@Html.EditorFor(model => model.PasswordConfirm)
-                <br>
-                    }
-                }
-
-                <input type="submit" class="button" value="Зарегистрироваться" />
+            @{
+                   var selectList = positions.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
             }
+
+            @using (Html.BeginForm())
+                {
+                @Html.AntiForgeryToken()
+                    {
+                        @Html.ValidationSummary(false)
+                        {
+                            <span>Логин:</span>@Html.EditorFor(model => model.Login)
+                            <br>
+
+                            <span>Имя:</span>@Html.EditorFor(model => model.FirstName)
+                            <br>
+
+                            <span>Фамилия:</span> @Html.EditorFor(model => model.LastName)
+                            <br>
+
+                            <span>Отчество:</span>@Html.EditorFor(model => model.Patronymic)
+                            <br>
+
+                            <span>Почта:</span>@Html.EditorFor(model => model.Email)
+                            <br>
+
+                            <span>Должность:</span>@Html.DropDownListFor(model => model.Position, selectList)
+                            <br>
+
+                            <span>Пароль:</span>@Html.EditorFor(model => model.Password)
+                            <br>
+
+                            <span>Подтвердить пароль:</span>@Html.EditorFor(model => model.PasswordConfirm)
+                            <br>
+                        }
+                    }
+
+                    <input type="submit" class="button" value="Зарегистрироваться" />
+                }
         </div>
-        </div>
+    </div>
 </body>
